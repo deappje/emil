@@ -1,0 +1,10 @@
+# Dependencies and build output
+node_modules/
+frontend/dist/
+backend/plantengids
+
+# Local settings
+.env
+.env.*
+.DS_Store
+*.log

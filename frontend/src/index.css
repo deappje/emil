@@ -1,0 +1,135 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/* Moss green on warm cream, a terracotta accent for "inheems". */
+:root {
+  --radius: 0.85rem;
+  --background: oklch(0.977 0.012 100);
+  --foreground: oklch(0.25 0.035 152);
+  --card: oklch(0.995 0.006 100);
+  --card-foreground: oklch(0.25 0.035 152);
+  --popover: oklch(0.995 0.006 100);
+  --popover-foreground: oklch(0.25 0.035 152);
+  --primary: oklch(0.47 0.085 152);
+  --primary-foreground: oklch(0.985 0.012 100);
+  --secondary: oklch(0.935 0.026 125);
+  --secondary-foreground: oklch(0.3 0.05 150);
+  --muted: oklch(0.948 0.014 100);
+  --muted-foreground: oklch(0.48 0.03 145);
+  --accent: oklch(0.93 0.045 70);
+  --accent-foreground: oklch(0.42 0.1 45);
+  --terra: oklch(0.6 0.13 45);
+  --destructive: oklch(0.55 0.2 27);
+  --destructive-foreground: oklch(0.985 0.01 30);
+  --border: oklch(0.885 0.02 110);
+  --input: oklch(0.86 0.022 110);
+  --ring: oklch(0.56 0.1 152);
+  --glow: oklch(0.47 0.085 152 / 0.28);
+  --leaf-a: oklch(0.86 0.06 140);
+  --leaf-b: oklch(0.93 0.04 100);
+}
+
+.dark {
+  --background: oklch(0.185 0.02 155);
+  --foreground: oklch(0.94 0.014 100);
+  --card: oklch(0.225 0.022 155);
+  --card-foreground: oklch(0.94 0.014 100);
+  --popover: oklch(0.235 0.022 155);
+  --popover-foreground: oklch(0.94 0.014 100);
+  --primary: oklch(0.76 0.12 148);
+  --primary-foreground: oklch(0.2 0.03 155);
+  --secondary: oklch(0.285 0.03 150);
+  --secondary-foreground: oklch(0.92 0.03 120);
+  --muted: oklch(0.255 0.02 155);
+  --muted-foreground: oklch(0.73 0.03 130);
+  --accent: oklch(0.32 0.05 60);
+  --accent-foreground: oklch(0.88 0.07 70);
+  --terra: oklch(0.74 0.12 50);
+  --destructive: oklch(0.62 0.19 27);
+  --destructive-foreground: oklch(0.98 0.01 30);
+  --border: oklch(0.315 0.025 150);
+  --input: oklch(0.36 0.028 150);
+  --ring: oklch(0.7 0.11 150);
+  --glow: oklch(0.76 0.12 148 / 0.18);
+  --leaf-a: oklch(0.32 0.05 150);
+  --leaf-b: oklch(0.26 0.03 120);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-terra: var(--terra);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --font-sans: "Inter Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Fraunces Variable", ui-serif, Georgia, serif;
+  --shadow-glow: 0 24px 60px -28px var(--glow);
+  --shadow-card: 0 1px 2px oklch(0.3 0.04 150 / 0.06), 0 8px 24px -16px oklch(0.3 0.04 150 / 0.22);
+
+  /* The colours a plant can have: data, shown as swatches. */
+  --color-swatch-wit: oklch(0.985 0.005 100);
+  --color-swatch-geel: oklch(0.88 0.16 95);
+  --color-swatch-oranje: oklch(0.74 0.16 55);
+  --color-swatch-rood: oklch(0.57 0.2 27);
+  --color-swatch-roze: oklch(0.79 0.11 355);
+  --color-swatch-paars: oklch(0.55 0.16 305);
+  --color-swatch-blauw: oklch(0.6 0.14 255);
+  --color-swatch-groen: oklch(0.64 0.13 140);
+  --color-swatch-grijs: oklch(0.78 0.02 140);
+}
+
+@utility swatch-bont {
+  background-image: linear-gradient(135deg, var(--color-swatch-groen) 50%, oklch(0.94 0.05 100) 50%);
+}
+
+@utility bg-leaves {
+  background-image:
+    radial-gradient(70% 90% at 0% 0%, color-mix(in oklch, var(--primary) 16%, transparent), transparent 70%),
+    radial-gradient(50% 80% at 100% 0%, color-mix(in oklch, var(--terra) 12%, transparent), transparent 70%);
+}
+
+@utility bg-dots {
+  background-image: radial-gradient(color-mix(in oklch, var(--foreground) 9%, transparent) 1px, transparent 1px);
+  background-size: 18px 18px;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html {
+    color-scheme: light;
+  }
+  html.dark {
+    color-scheme: dark;
+  }
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+  }
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+}

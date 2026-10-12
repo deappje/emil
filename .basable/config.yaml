@@ -1,0 +1,19 @@
+apiVersion: basable.com/v1
+kind: TenantConfig
+spec:
+  environments:
+    preview:
+      virtual-cluster:
+        cpu: "2000m"
+        memory: "4Gi"
+        storage: "10Gi"
+        maxPods: 30
+      # Plant photos (public bucket) and database backups (private bucket)
+      objectStorage: {}
+    live:
+      virtual-cluster:
+        cpu: "2000m"
+        memory: "4Gi"
+        storage: "10Gi"
+        maxPods: 30
+      objectStorage: {}

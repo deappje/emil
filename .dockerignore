@@ -1,0 +1,8 @@
+.git
+.github
+.basable
+k8s
+**/node_modules
+frontend/dist
+backend/plantengids
+*.md

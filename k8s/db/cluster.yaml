@@ -1,0 +1,43 @@
+# One PostgreSQL instance; its connection string lands in Secret app-db-app
+# (key uri). Base backups and the WAL archive go to the private bucket.
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: app-db
+  namespace: default
+spec:
+  instances: 1
+  storage:
+    size: 2Gi
+  resources:
+    requests:
+      cpu: "100m"
+      memory: "512Mi"
+    limits:
+      cpu: "500m"
+      memory: "512Mi"
+  bootstrap:
+    initdb:
+      database: app
+      owner: app
+  backup:
+    retentionPolicy: "14d"
+    barmanObjectStore:
+      destinationPath: s3://OBJECT_STORAGE_BUCKET_PLACEHOLDER/cnpg/app-db
+      endpointURL: OBJECT_STORAGE_ENDPOINT_PLACEHOLDER
+      s3Credentials:
+        accessKeyId: {name: object-storage, key: AWS_ACCESS_KEY_ID}
+        secretAccessKey: {name: object-storage, key: AWS_SECRET_ACCESS_KEY}
+        region: {name: object-storage, key: AWS_REGION}
+      wal: {compression: gzip}
+      data: {compression: gzip}
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: ScheduledBackup
+metadata:
+  name: app-db-daily
+  namespace: default
+spec:
+  schedule: "0 0 3 * * *" # 03:00 every day (seconds first)
+  cluster: {name: app-db}
+  method: barmanObjectStore
